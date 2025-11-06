@@ -1,0 +1,31 @@
+name: Sync Minder Policies
+# Generated with Gemini-2.5 Pro with the following prompt:
+#   write a GitHub Actions workflow which will checkout this repo and
+#   custcodian/minder-rules-and-profiles, create a `minder` directory
+#   in this repo if needed, delete the `top-5` directory within the
+#   `minder` repo, and then copy the contents (dereferencing symlinks)
+#   from the `top-5` directory in minder-rules-and-profiles to this
+#   repo.  The end result should be a PR to this repo to update the
+#   files in `minder/top-5`.
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/policy-sync.yaml
+  workflow_dispatch:
+  schedule:
+    - cron: "0 8 * * 1" # Run every Monday at 8 AM UTC
+
+jobs:
+  sync-policies:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Sync catalog from custcodian/minder-rules-and-profiles
+        uses: custcodian/sync-catalog@v1
+        with:
+          policy_dirs: top-5,security-baseline
