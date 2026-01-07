@@ -22,7 +22,7 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
     - name: Apply Minder Config
-      uses: custcodian/minder-action
+      uses: custcodian/minder-action@v1
       with:
         project: testing
         # Apply all the policies in the minder directory, which should be synced
