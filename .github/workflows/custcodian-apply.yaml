@@ -1,5 +1,3 @@
-# DO NOT MERGE UP TO `mindersec/`, THIS FILE APPLIES POLICY FOR CUSTCODIAN
-# AND WILL NOT APPLY (MISSING PERMISSIONS) UPSTREAM.
 name: Apply Minder Profiles on Update
 on:
   push:
@@ -24,10 +22,9 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v4
     - name: Apply Minder Config
-      uses: custcodian/minder-action@3a0298592619a0feb118d134f9443c9aea60eead  # Will be v1.1
+      uses: custcodian/minder-action
       with:
-        server: minder-staging.squeaker-neon.ts.net
-        project: evankanderson
+        project: testing
         # Apply all the policies in the minder directory, which should be synced
-        # from other sources by the `policy-sync.yaml` workflow.
+        # from other sources by the `custcodian-sync.yaml` workflow.
         directory: ./minder
